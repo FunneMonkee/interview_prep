@@ -1,0 +1,26 @@
+class Solution {
+    public int reverse(int x) {
+        int res = 0;
+        int rem = 0;
+        int n = Math.abs(x);
+        boolean isNegative = x < 0;
+ 
+        while (n != 0) {
+            rem = n % 10;
+            n = n / 10;
+
+            //edge case, higher than int32 
+            //check with inverse of the next sum
+            //max - rem that will be added / 10
+            if (res > (Integer.MAX_VALUE - rem) / 10)
+                return 0;
+            
+            res = res * 10 + rem;
+        } 
+        
+        if (isNegative)
+            return -res;
+        
+        return res;
+    }
+}
