@@ -1,0 +1,36 @@
+class Solution {
+    public int maximumSum(int[] nums) {
+        //for unknown bounds
+        //since bounds are known, an array of length 82 can be used (9999... being the max)
+        Map<Integer, Integer> numbersPerSum = new HashMap<>();
+        int max = -1;
+
+        for (int i = 0; i < nums.length; i++) {
+            int sum = sum(nums[i]);
+            Integer match = numbersPerSum.get(sum);
+
+            if (match != null) {
+                max = Math.max(max, nums[i] + match);
+                numbersPerSum.replace(sum, Math.max(match, nums[i]));
+            }
+            else {
+                numbersPerSum.put(sum, nums[i]);
+            }
+        }  
+
+        return max;
+    }
+
+    static int sum(int n) {
+        int res = 0;
+        int rem = 0; 
+
+        while (n != 0) {
+            rem = n % 10;
+            n = n / 10;
+            res+=rem;
+        }
+
+        return res;
+    }
+}

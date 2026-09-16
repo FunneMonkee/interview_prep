@@ -1,0 +1,25 @@
+class Solution {
+    public int[][] matrixReshape(int[][] mat, int r, int c) {
+        int n = mat.length;
+        int m = mat[0].length;
+        int max = n * m;
+        int[][] result = new int[r][c];
+
+        if (max != (r * c) || (n == r && m == c)) return mat;
+
+        int k = 0;
+        int l = 0;
+        for (int i = 0; i < r; i++) {
+            for (int j = 0; j < c; j++) {
+                result[i][j] = mat[k][l];
+                l++;
+                if (l == m) {
+                    l = 0;
+                    k++;
+                }
+            }
+        }
+
+        return result;
+    }
+}

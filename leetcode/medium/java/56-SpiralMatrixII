@@ -1,0 +1,45 @@
+class Solution {
+    public int[][] generateMatrix(int n) {
+        int[][] matrix = new int[n][n];
+        int top = 0;
+        int bottom = matrix.length - 1;
+        int left = 0;
+        int right = matrix[0].length - 1;
+        int prev = 0;
+
+        while (top <= bottom && left <= right) {
+
+            // 1. Traverse top row: left -> right
+            for (int col = left; col <= right; col++) {
+                matrix[top][col] = ++prev;
+            }
+            top++;
+
+            // 2. Traverse right column: top -> bottom
+            for (int row = top; row <= bottom; row++) {
+                matrix[row][right] = ++prev;
+            }
+            right--;
+
+            // 3. Traverse bottom row: right -> left
+            // top incremented in left -> right so check here
+            if (top <= bottom) {
+                for (int col = right; col >= left; col--) {
+                    matrix[bottom][col] = ++prev;
+                }
+                bottom--;
+            }
+
+            // 4. Traverse left column: bottom -> top
+            // rigt decremented in left -> right so check here
+            if (left <= right) {
+                for (int row = bottom; row >= top; row--) {
+                    matrix[row][left] = ++prev;
+                }
+                left++;
+            }
+        }
+
+        return matrix;
+    }
+}
